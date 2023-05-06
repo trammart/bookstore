@@ -8,14 +8,14 @@ use App\SessionGuard as Guard;
 
 class RegisterController extends Controller
 {
-	public function __construct()
-	{
-		if (Guard::isUserLoggedIn()) {
-			redirect('/home');
-		}
+	// public function __construct()
+	// {
+	// 	if (Guard::isUserLoggedIn()) {
+	// 		redirect('/home');
+	// 	}
 
-		parent::__construct();
-	}
+	// 	parent::__construct();
+	// }
 
 	public function showRegisterForm()
 	{

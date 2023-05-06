@@ -7,10 +7,10 @@
             <div class="modal fade" id="img-1" tabindex="-1" aria-labelledby="exampleModalLabel">
                 <div class="modal-dialog">
                     <div class="modal-content">
-                        <div class="modal-header">
+                        <div class="modal-header p-2">
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <div class="modal-body">
+                        <div class="modal-body p-0">
                             <img width="100%" src="img/product/<?php echo $product->hinh_anh ?>" />
                         </div>
                     </div>
@@ -19,10 +19,10 @@
             <div class="modal fade" id="img-2" tabindex="-1" aria-labelledby="exampleModalLabel">
                 <div class="modal-dialog">
                     <div class="modal-content">
-                        <div class="modal-header">
+                        <div class="modal-header p-2">
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <div class="modal-body">
+                        <div class="modal-body p-0">
                             <img width="100%" src="img/product/<?php echo $product->anh_1 ?>" />
                         </div>
                     </div>
@@ -31,10 +31,10 @@
             <div class="modal fade" id="img-3" tabindex="-1" aria-labelledby="exampleModalLabel">
                 <div class="modal-dialog">
                     <div class="modal-content">
-                        <div class="modal-header">
+                        <div class="modal-header p-2">
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <div class="modal-body">
+                        <div class="modal-body p-0">
                             <img width="100%" src="img/product/<?php echo $product->anh_2 ?>" />
                         </div>
                     </div>
@@ -58,7 +58,7 @@
                 <div class="row">
                     <h2 class="col-3 text-danger"><?= number_format($product->gia_khuyen_mai, 0, '.', ',') ?>đ</h2>
                     <?php if ($product->khuyen_mai>0){
-                        echo '<del class="col-3 mt-2 text-muted position-relative" style="left: -60px;">' . number_format($product->gia_sach, 0, '.', ','). 'đ</del>
+                        echo '<del class="col-3 mt-2 text-muted position-relative" style="left: -30px;">' . number_format($product->gia_sach, 0, '.', ','). 'đ</del>
                         <div class="badge-detail text-center col-3">-' .$product->khuyen_mai . '%</div>';
                     }
                     ?>

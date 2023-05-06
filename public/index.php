@@ -26,7 +26,6 @@ $router->get('/about', '\App\Controllers\HomeController@about');
 $router->post('/search', '\App\Controllers\HomeController@search');
 
 $router->get('/product_all', '\App\Controllers\ProductController@product');
-$router->get('/product', '\App\Controllers\ProductController@productIntro');
 $router->post('/product', '\App\Controllers\ProductController@productOfType');
 $router->get('/detail', '\App\Controllers\ProductController@detailProduct');
 
@@ -41,8 +40,8 @@ $router->get('/payHistory', '\App\Controllers\BillController@payHistory');
 $router->get('/detailBill', '\App\Controllers\BillController@detailBill');
 
 // Management Products routes
-$router->get('/management', '\App\Controllers\Manage\ManagementController@getAllProducts');
-$router->post('/management', '\App\Controllers\Manage\ManagementController@sortAllProducts');
+$router->get('/manageProduct', '\App\Controllers\Manage\ManagementController@getAllProducts');
+$router->post('/manageProduct', '\App\Controllers\Manage\ManagementController@sortAllProducts');
 
 $router->get('/create', '\App\Controllers\Manage\ManagementController@showCreatePage');
 $router->post('/createProduct', '\App\Controllers\Manage\ManagementController@createProduct');

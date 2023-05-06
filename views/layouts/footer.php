@@ -4,7 +4,7 @@
         <div class="row px-xl-5 pt-5">
             <div class="col-lg-4 col-md-12 pr-3 pr-xl-5">
                 <a href="" class="text-decoration-none">
-                    <h1 class="m-0 display-4 text-primary"><span class="text-secondary">one</span>BOOK</h1>
+                    <h1 class="m-0 display-4 text-secondary"><span class="text-primary">BOOK</span>worm</h1>
                 </a>
                 <p>Nhà sách One Book có hàng ngàn tựa sách, cam kết hoàn tiền nếu sách giả, nhiều mã giảm giá hôm nay. Mua ngay!</p>
                 <p class="mb-2"><i class="fa fa-map-marker-alt text-primary mr-3"></i> 123 Xuân Khánh, Ninh Kiều, Cần Thơ</p>
@@ -42,7 +42,7 @@
         <div class="row border-top border-light mx-xl-5 py-4">
             <div class="col-md-6 px-xl-0">
                 <p class="mb-md-0 text-lg-left">
-                    &copy; <a class="font-weight-semi-bold" href="#">One Book</a>. Dự án Niên luận cơ sở ngành Công nghệ thông tin.
+                    &copy; <a class="font-weight-semi-bold" href="#">Bookworms Store</a>. Dự án Niên luận cơ sở ngành Công nghệ thông tin.
                     Thiết kế và cài đặt bởi B2005780 Nguyễn Ngọc Trâm
                 </p>
             </div>

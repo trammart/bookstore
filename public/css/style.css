@@ -154,7 +154,11 @@ a:hover {
 }
 
 .bg-body-login {
-  background-color: rgb(223, 255, 210) !important;
+  background-color: rgb(255, 232, 233) !important;
+}
+
+.bg-purple {
+  background-color: rgb(230, 174, 236) !important;
 }
 
 .btn-primary {
@@ -242,7 +246,7 @@ h6,
 .badge {
   position: absolute;
   text-transform: uppercase;
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 700;
   background: red;
   color: #fff;
@@ -265,14 +269,15 @@ h6,
 
 .badge-detail {
   position: relative;
-  left: -150px;
+  left: -80px;
+  top:5px;
   border-radius: 6%;
   padding-top:4px;
   width: 60px;
   height: 30px;
   font-size: 16px;
   font-weight: 700;
-  background: rgb(224, 23, 117);
+  background: rgb(199, 6, 6);
   color: #fff;
   z-index: 20;
 }

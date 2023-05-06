@@ -83,7 +83,7 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="w-100 boder-bottom p-1">
-            <h3 class="fs-4 px-2 text-white text-center text-uppercase pt-2">Quản lý người dùng</h3>
+            <h3 class="fs-4 px-2 text-white text-center text-uppercase pt-2">Quản lý sản phẩm</h3>
         </div>
         <div class="navbar-nav">
             <div class="nav-item text-nowrap">
@@ -107,7 +107,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/manageProduct">
+                            <a class="nav-link active" href="/manageProduct">
                                 <i class="fa fa-book"></i>
                                 Sản Phẩm
                             </a>
@@ -119,7 +119,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" href="/users">
+                            <a class="nav-link" href="/users">
                                 <i class="fas fa-user-friends"></i>
                                 Người Dùng
                             </a>
@@ -130,37 +130,58 @@
 
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
                 <div class="mb-4 d-flex flex-row justify-content-between pt-3 pb-2 mb-3 border-bottom">
-                    <a href="/register" class="btn btn-xs btn-primary"><i class="fa fa-plus"></i> Thêm Người Dùng</a>
-                    <form class="text-right" role="search" action="/users" method="POST">
-                        <select class="form-select form-select-sm h-100" style="display: inline" name="sort-user" onchange="this.form.submit()">
-                            <option value="1" <?= isset($old_user_selected['val']) ? ($old_user_selected['val'] == 1 ? 'selected' : '') : '' ?>>Mặc định</option>
-                            <option value="2" <?= isset($old_user_selected['val']) ? ($old_user_selected['val'] == 2 ? 'selected' : '') : '' ?>>ID: Thấp đến Cao</option>
-                            <option value="3" <?= isset($old_user_selected['val']) ? ($old_user_selected['val'] == 3 ? 'selected' : '') : '' ?>>ID: Cao đến Thấp</option>
-                            <option value="4" <?= isset($old_user_selected['val']) ? ($old_user_selected['val'] == 4 ? 'selected' : '') : '' ?>>Mới nhất</option>
+                    <a href="/create" class="btn btn-xs btn-primary"><i class="fa fa-plus"></i> Thêm Sản Phẩm</a>
+                    <form class="text-right" role="search" action="/manageProduct" method="POST">
+                        <select class="form-select form-select-sm h-100" style="display: inline" name="sort-price" onchange="this.form.submit()">
+                            <option value="1" <?= isset($old_selected['val']) ? ($old_selected['val'] == 1 ? 'selected' : '') : '' ?>>Mặc định</option>
+                            <option value="2" <?= isset($old_selected['val']) ? ($old_selected['val'] == 2 ? 'selected' : '') : '' ?>>Giá Khuyến Mãi: Thấp đến Cao</option>
+                            <option value="3" <?= isset($old_selected['val']) ? ($old_selected['val'] == 3 ? 'selected' : '') : '' ?>>Giá Khuyến Mãi: Cao đến Thấp</option>
+                            <option value="4" <?= isset($old_selected['val']) ? ($old_selected['val'] == 4 ? 'selected' : '') : '' ?>>Sản phẩm bán chạy nhất</option>
                         </select>
                     </form>
 
                 </div>
 
-                <table id="all-users" class="table table-bordered table-responsive mb-5" style="border-color: #cacaca!important;">
-                    <thead class="bg-info text-light text-center">
+                <table id="all-products" class="table table-bordered table-responsive mb-5" style="border-color: #cacaca!important;">
+                    <thead class="bg-info text-light text-uppercase text-center align-middle">
                         <tr>
-                            <th scope="col" class="text-uppercase">ID</th>
-                            <th scope="col" class="text-uppercase">Tên Người Dùng</th>
-                            <th style="width: 300px" scope="col" class="text-uppercase">Email</th>
-                            <th style="width: 120px" scope="col" class="text-uppercase">SĐT</th>
-                            <th scope="col" class="text-uppercase">Địa Chỉ</th>
+                            <th>ID</th>
+                            <th>Tên Sản Phẩm</th>
+                            <th style="width: 100px">Giá Gốc</th>
+                            <th style="width: 100px">Giá Khuyến Mãi</th>
+                            <th>Hình Ảnh</th>
+                            <th>Số Lượng</th>
+                            <th>Loại Sản Phẩm</th>
+                            <th>Đã Bán</th>
+                            <th style="width: 100px">Ngày Tạo</th>
+                            <th>Cập Nhật</th>
+                            <th>Xóa</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach ($users_manage as $user_manage) : ?>
-                            <tr>
-                                <input class="" type="hidden" name="id" value="<?= $this->e($user_manage->id) ?>">
-                                <td style="text-align: center; vertical-align: middle;"><?= $this->e($user_manage->id) ?></td>
-                                <td style="vertical-align: middle;"><?= $this->e($user_manage->name) ?></a></td>
-                                <td style="vertical-align: middle;"><?= $this->e($user_manage->email) ?></td>
-                                <td style="vertical-align: middle;"><?= $this->e($user_manage->phone) ?></td>
-                                <td style="vertical-align: middle;"><?= $this->e($user_manage->address) ?></td>
+                        <?php foreach ($products_manage as $product_manage) : ?>
+                            <tr style="font-size: 15px;">
+                                <input class="" type="hidden" name="id" value="<?= $this->e($product_manage->ma_sach) ?>">
+                                <td style="text-align: center; vertical-align: middle;"><?= $this->e($product_manage->ma_sach) ?></td>
+                                <td style="vertical-align: middle;"><a class="text-black" href="/detail?masp=<?= $product_manage->ma_sach ?>"><?= $this->e($product_manage->ten_sach) ?></a></td>
+                                <td style="vertical-align: middle;"><?= $this->e(number_format($product_manage->gia_sach, 0, ',', '.')) ?> VNĐ</td>
+                                <td style="vertical-align: middle;"><?= $this->e(number_format($product_manage->gia_khuyen_mai, 0, ',', '.')) ?> VNĐ</td>
+                                <td style="text-align: center; vertical-align: middle;"><img src="/img/product/<?= $this->e($product_manage->hinh_anh) ?>" style="width: 90px;"></td>
+                                <td style="text-align: center; vertical-align: middle;"><?= $this->e($product_manage->so_luong) ?></td>
+                                <td style="text-align: center; vertical-align: middle;"><?= $this->e($product_manage->ten_loai_sach) ?></td>
+                                <td style="vertical-align: middle;"><?= $this->e($product_manage->sold) ?></td>
+                                <td style="vertical-align: middle;"><?= $this->e($product_manage->created_at) ?></td>
+                                <td style="text-align: center; vertical-align: middle;"><a href="/manage/<?= $this->e($product_manage->ma_sach) ?>" class="btn btn-xs btn-warning" style="padding: 3px 6px;">
+                                        <i alt="Edit" class="fa fa-edit"></i>
+                                    </a>
+                                </td>
+                                <td style="text-align: center; vertical-align: middle;">
+                                    <form class="delete" action="/manage/delete/<?= $this->e($product_manage->ma_sach) ?>" method="POST" style="display: inline;">
+                                        <button type="button" class="btn btn-xs btn-danger button-delete" name="delete-product" data-bs-toggle="modal" data-bs-target="#delete-confirm" style="padding: 3px 9px;">
+                                            <i alt="Delete" class="fa fa-trash"></i>
+                                        </button>
+                                    </form>
+                                </td>
                             </tr>
                         <?php endforeach ?>
                     </tbody>

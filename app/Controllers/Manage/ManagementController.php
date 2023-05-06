@@ -10,6 +10,7 @@ use App\Models\ProductType;
 use App\Models\TacGia;
 use App\Models\NhaXuatBan;
 use App\Models\Bill;
+use App\Models\BillDetail;
 use Carbon\Carbon;
 
 class ManagementController extends Controller
@@ -27,7 +28,7 @@ class ManagementController extends Controller
     public function getAllProducts()
     {
         $products_manage = Product::join('loaisach', 'loaisach.ma_loai_sach', '=', 'sach.ma_loai_sach')->orderBy('sach.ma_sach', 'ASC')->get();
-        $this->sendPage('manage/management', [
+        $this->sendPage('manage/manageProduct', [
             'products_manage' => $products_manage
         ]);
     }
@@ -40,30 +41,30 @@ class ManagementController extends Controller
             $sort_price = $_POST['sort-price'];
             if ($sort_price == 1) {
                 $old_selected = array("val" => "1");
-                $this->sendPage('manage/management', [
+                $this->sendPage('manage/manageProduct', [
                     'products_manage' => Product::join('loaisach', 'loaisach.ma_loai_sach', '=', 'sach.ma_loai_sach')
                         ->orderBy('ma_sach', 'ASC')->get(),
                     'old_selected' => $old_selected
                 ]);
             } else if ($sort_price == 2) {
                 $old_selected = array("val" => "2");
-                $this->sendPage('manage/management', [
+                $this->sendPage('manage/manageProduct', [
                     'products_manage' => Product::join('loaisach', 'loaisach.ma_loai_sach', '=', 'sach.ma_loai_sach')
                         ->orderBy('gia_khuyen_mai', 'ASC')->get(),
                     'old_selected' => $old_selected
                 ]);
             } else if ($sort_price == 3) {
                 $old_selected = array("val" => "3");
-                $this->sendPage('manage/management', [
+                $this->sendPage('manage/manageProduct', [
                     'products_manage' => Product::join('loaisach', 'loaisach.ma_loai_sach', '=', 'sach.ma_loai_sach')
                         ->orderBy('gia_khuyen_mai', 'DESC')->get(),
                     'old_selected' => $old_selected
                 ]);
             } else if ($sort_price == 4) {
                 $old_selected = array("val" => "4");
-                $this->sendPage('manage/management', [
+                $this->sendPage('manage/manageProduct', [
                     'products_manage' => Product::join('loaisach', 'loaisach.ma_loai_sach', '=', 'sach.ma_loai_sach')
-                        ->orderBy('created_at', 'DESC')->get(),
+                        ->orderBy('sold', 'DESC')->get(),
                     'old_selected' => $old_selected
                 ]);
             }
@@ -119,7 +120,7 @@ class ManagementController extends Controller
             $product = new Product();
             $product->fill($data);
             $product->save();
-            redirect('/management');
+            redirect('/manageProduct');
         }
 
         // Lưu các giá trị của form vào $_SESSION['form']
@@ -141,8 +142,8 @@ class ManagementController extends Controller
             'so_luong' => $data['so_luong'] ?? null,
             'sold' => 0,
             'hinh_anh' => basename($_FILES["hinh_anh"]["name"]) ?? null,
-            'anh_1' => basename($_FILES["anh_1"]["name"]) ?? null,
-            'anh_2' => basename($_FILES["anh_1"]["name"]) ?? null,
+            'anh_1' => basename($_FILES["anh"]["name"][0]) ?? null,
+            'anh_2' => basename($_FILES["anh"]["name"][1]) ?? null,
             'mo_ta' => $data['mo_ta'] ?? null
         ];
     }
@@ -210,9 +211,10 @@ class ManagementController extends Controller
             unset($model_errors['anh_2']);
         }
 
-        //Không cập nhật lại Mã Sản Phẩm và Created_at
+        //Không cập nhật lại Mã Sản Phẩm và Created_at và Số lượng sp đã bán
         unset($data['ma_sach']);
         unset($data['created_at']);
+        unset($data['sold']);
 
         //Cập nhật lại giá khuyến mãi
         if ($data['khuyen_mai'] && $data['khuyen_mai'] >= 0) {
@@ -224,7 +226,7 @@ class ManagementController extends Controller
         if (empty($model_errors)) {
             $product->update($data);
             $product->save();
-            redirect('/management');
+            redirect('/manageProduct');
         }
         $this->saveUpdateFormValues($_POST);
 
@@ -237,7 +239,7 @@ class ManagementController extends Controller
     {
         $product = Product::where('ma_sach', '=', $productId)->first();
         $product->delete();
-        redirect('/management');
+        redirect('/manageProduct');
     }
 
 
@@ -295,9 +297,8 @@ class ManagementController extends Controller
 	}
 
     public function manageDetailBill(){
-		$this->sendPage('manage/manageDetailBill', [
-            'bill' =>Bill::join('sach', 'sach.ma_sach', '=', 'hoadon.ma_sach')->where('ma_hoa_don', $_GET['mhd'])->get()
-        ]);
+        $this->sendPage('manage/manageDetailBill', ['bill' =>BillDetail::join('sach', 'sach.ma_sach', '=', 'chitiethoadon.ma_sach')->where('ma_hoa_don', $_GET['mhd'])->get(),
+	                                         'billdetail' => Bill::where('ma_hoa_don', $_GET['mhd'])->get()]);
 	}
 
     public function cancelBill($billId)

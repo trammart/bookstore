@@ -19,7 +19,7 @@ class HomeController extends Controller
 
 	public function index()
 	{
-		$this->sendPage('home');
+		$this->sendPage('home', ['product' => Product::all(), 'product_sale' => Product::where('khuyen_mai', '>', 0)->get()]);
 	}
 
 	public function about()
@@ -30,7 +30,7 @@ class HomeController extends Controller
 	public function search()
 	{
 		if(isset($_POST['search']) && $_POST['search'] != ''){
-			$this->sendPage('layouts/search',['result'=>Product::where('ten_sach','like', '%'. $_POST['search'] . '%')->get()]);
+			$this->sendPage('layouts/search',['result'=>Product::where('ten_sach', 'like', '%' . $_POST['search']. '%')->get()]);
 		}else {
 			redirect('/home');
 		}

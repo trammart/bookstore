@@ -17,7 +17,7 @@
                     <tr>
                         <th scope="col">STT</th>
                         <th scope="col">SẢN PHẨM</th>
-                        <th scope="col">TÊN SẢN PHẨM</th>
+                        <th scope="col"></th>
                         <th scope="col">SỐ LƯỢNG</th>
                         <th scope="col">THÀNH TIỀN</th>
                         <th scope="col">XÓA</th>
@@ -31,13 +31,13 @@
 
                         echo '<tr class="align-middle">
             <th scope="row">' . $index + 1 . '</th>
-            <td class="col-4"> <a href="/detail?masp=' . $item->ma_sach . '""><img src="/img/product/';
+            <td class="col-2"> <a href="/detail?masp=' . $item->ma_sach . '""><img src="/img/product/';
                         echo  $item->hinh_anh . '" style="width: 120px" ></a>';
                         $total = $total + $item['gia_khuyen_mai'] * $item['so_luong_sach'];
                         $sumProduct += $item['so_luong_sach'];
 
                         echo '</td>
-            <td><p class="text-primary">' . $item['ten_sach'] . '</p></td>
+            <td><p class="text-dark text-start">' . $item['ten_sach'] . '</p> <p class="text-dark text-start fw-bold">' . number_format($item->gia_khuyen_mai, 0, '.', ',') . 'đ</p></td>
             <td class="d-flex justify-content-center" style="padding-top:4.1rem; padding-bottom:5rem"><form  action="/del" method="POST"><input type="hidden" value="1"  name="so-luong">
             <input type="hidden" name="masp" value="' . $item->ma_sach . '">
              <button class="btn btn-link"><i class="fa fa-minus-circle" style="color:#ec4276; font-size:24px;"></i></button></form><input type="number" style="width:60px;" class="text-center" value = "' . $item['so_luong_sach'] . '"/><form  action="/addCart" method="POST"><input type="hidden" value="1"  name="so-luong">

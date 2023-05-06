@@ -23,13 +23,13 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <div class="row table-product mt-5">
+                    <div class="row table-product mt-1">
                         <table class="table text-center">
                             <thead class="bg-info text-light">
                                 <tr>
                                     <th scope="col">STT</th>
                                     <th scope="col">SẢN PHẨM</th>
-                                    <th scope="col">TÊN SẢN PHẨM</th>
+                                    <th scope="col"></th>
                                     <th scope="col">SỐ LƯỢNG</th>
                                     <th scope="col">THÀNH TIỀN</th>
                                 </tr>
@@ -41,8 +41,8 @@
 
                                         echo '<tr class="align-middle">
                         <th scope="row">' . $index + 1 . '</th>
-                        <td class="col-4"> <a href="/detail?masp=' . $item->ma_sach . '""><img src="/img/product/' . $item->hinh_anh . '" width="30%" ></a></td>
-                        <td><b class="text-primary">' . $item['ten_sach'] . '</b></td>
+                        <td class="col-2"> <a href="/detail?masp=' . $item->ma_sach . '""><img src="/img/product/' . $item->hinh_anh . '" width="80%" ></a></td>
+                        <td><p class="text-dark text-start">' . $item['ten_sach'] . '</p> <p class="text-dark text-start fw-bold">' . number_format($item->gia_khuyen_mai, 0, '.', ',') . 'đ</p></td>
                         <td>' . $item['so_luong_sp'] . '</td>
                         <td>' . number_format($item['gia_khuyen_mai'] * $item['so_luong_sp'], 0, '.', ',')  . 'đ</td>      
                         </tr>';
