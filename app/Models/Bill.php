@@ -15,6 +15,7 @@ class Bill extends Model
                         'id',
                         'ngay_lap', 
                         'trang_thai',
+                        'trang_thai_thanh_toan',
                         'tong_tien', 
                         'ten_khach_hang',
                         'sdt', 

@@ -142,9 +142,9 @@
                                 <label class="fw-bold" for="name">Tên Sản Phẩm</label>
                                 <input type="text" name="ten_sach" class="form-control border border-1 border-secondary" maxlen="255" id="name" placeholder="Nhập tên" value="<?= isset($old_value['ten_sach']) ? $this->e($old_value['ten_sach']) : $this->e($product->ten_sach) ?>" style="background-color: #F3F6FF;" />
 
-                                <?php if (isset($errors_update['ten_sach'])) : ?>
+                                <?php if (isset($errors['ten_sach'])) : ?>
                                     <span class="help-block text-danger">
-                                        <strong><?= $this->e($errors_update['ten_sach']) ?></strong>
+                                        <strong><?= $this->e($errors['ten_sach']) ?></strong>
                                     </span>
                                 <?php endif ?>
                             </div>

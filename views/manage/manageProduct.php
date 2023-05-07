@@ -139,7 +139,6 @@
                             <option value="4" <?= isset($old_selected['val']) ? ($old_selected['val'] == 4 ? 'selected' : '') : '' ?>>Sản phẩm bán chạy nhất</option>
                         </select>
                     </form>
-
                 </div>
 
                 <table id="all-products" class="table table-bordered table-responsive mb-5" style="border-color: #cacaca!important;">

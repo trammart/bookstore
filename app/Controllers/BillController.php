@@ -19,4 +19,22 @@ class BillController extends Controller
 		$this->sendPage('bill/detailBill', ['bill' =>BillDetail::join('sach', 'sach.ma_sach', '=', 'chitiethoadon.ma_sach')->where('ma_hoa_don', $_GET['mhd'])->get(),
 	                                         'billdetail' => Bill::where('ma_hoa_don', $_GET['mhd'])->get()]);
 	}
+
+	public function cancel($billId)
+    {
+        $data['trang_thai'] = "Canceled";
+        $bill = Bill::where('ma_hoa_don', '=', $billId)->first();
+        $bill->update($data);
+        redirect('/payHistory');
+    }
+
+	public function recieved($billId)
+    {
+        // $data['trang_thai'] = "recieved";
+        $bill = Bill::where('ma_hoa_don', '=', $billId)->first();
+        $bill->update([
+			'trang_thai' => "recieved",
+			'trang_thai_thanh_toan' => "Đã thanh toán" ]);
+        redirect('/payHistory');
+    }
 }

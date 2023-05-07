@@ -38,6 +38,8 @@ $router->post('/pay', '\App\Controllers\CartController@pay');
 // Bill routes
 $router->get('/payHistory', '\App\Controllers\BillController@payHistory');
 $router->get('/detailBill', '\App\Controllers\BillController@detailBill');
+$router->post('/cancleBill/([0-9]+)', '\App\Controllers\BillController@cancel');
+$router->post('/recieved/([0-9]+)', '\App\Controllers\BillController@recieved');
 
 // Management Products routes
 $router->get('/manageProduct', '\App\Controllers\Manage\ManagementController@getAllProducts');
@@ -55,9 +57,15 @@ $router->post('/manage/delete/([A-Za-z0-9]+)', '\App\Controllers\Manage\Manageme
 $router->get('/manageBill', '\App\Controllers\Manage\ManagementController@manageBill');
 $router->get('/manageDetailBill', '\App\Controllers\Manage\ManagementController@manageDetailBill');
 $router->post('/manage/deleteBill/([0-9]+)', '\App\Controllers\Manage\ManagementController@cancelBill');
+$router->post('/manage/sending/([0-9]+)', '\App\Controllers\Manage\ManagementController@send');
+$router->post('/manageBill', '\App\Controllers\Manage\ManagementController@sortBill');
 
 // Management Users routes
 $router->get('/users', '\App\Controllers\Manage\ManagementController@getAllUsers');
 $router->post('/users', '\App\Controllers\Manage\ManagementController@sortAllUsers');
+$router->get('/userInfo', '\App\Controllers\Manage\ManagementController@userInfo');
+$router->post('/updateUser', '\App\Controllers\Manage\ManagementController@updateUser');
+$router->get('/passChange', '\App\Controllers\Manage\ManagementController@passChange');
+$router->post('/updatePass', '\App\Controllers\Manage\ManagementController@updatePass');
 
 $router->run();

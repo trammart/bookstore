@@ -82,7 +82,8 @@ class CartController extends Controller
 		$hoadon=Bill::create([
 			'ngay_lap' => Date::now(7),
 			'tong_tien' => $_POST['tong-tien'],
-			'trang_thai' => 'Đang chuẩn bị',
+			'trang_thai' => 'processing',
+			'trang_thai_thanh_toan' => 'Chưa thanh toán',
 			'id'=> $khach->id,
 			'sdt' => $_POST['phone'],
 			'ten_khach_hang'=> $khach->name,

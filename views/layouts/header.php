@@ -75,7 +75,7 @@
                                         <a href="/users">Người Dùng</a>
                                     </li>
                                     <li class="ps-4 text-start">
-                                        <a href="/manageBill">Hóa Đơn</a>
+                                        <a href="/manageBill">Đơn Hàng</a>
                                     </li>
                                 </ul>
                             </div>
@@ -86,10 +86,13 @@
                             </a>
 
                             <ul class="dropdown-menu" role="menu">
-                                <li class="ps-3 mb-2 text-start">
+                                <li class="px-2  mb-2 text-start">
                                     <a href="/payHistory">Lịch sử mua hàng</a>
                                 </li>
-                                <li class="ps-3 text-start">
+                                <li class="px-2 mb-2 text-start">
+                                    <a href="/userInfo?userId=<?= $this->e(\App\SessionGuard::user()->id) ?>">Thông tin tài khoản</a>
+                                </li>
+                                <li class="px-2 text-start">
                                     <a href="/logout" onclick="event.preventDefault();
                                                  document.getElementById('logout-form').submit();">
                                         Đăng xuất ➡️

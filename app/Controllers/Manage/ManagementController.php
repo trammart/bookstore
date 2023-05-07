@@ -272,7 +272,7 @@ class ManagementController extends Controller
                     'users_manage' => User::orderBy('created_at', 'DESC')->get(),
                     'old_user_selected' => $old_selected
                 ]);
-            } 
+            }
         }
     }
 
@@ -286,28 +286,161 @@ class ManagementController extends Controller
         ]);
     }
 
+    /*** UPDATE USER'S ACCOUNT ***/
+    protected function filterUserData(array $data)
+    {
+        return [
+            'name' => $data['name'] ?? null,
+            'email' => filter_var($data['email'], FILTER_VALIDATE_EMAIL),
+            'phone' => $data['phone'] ?? null,
+            'address' => $data['address'] ?? null,
+        ];
+    }
 
+    public function userInfo()
+    {
+        $user = User::where('id', $_GET['userId'])->first();
+
+        $this->sendPage('manage/userInfo', [
+            'errors' => session_get_once('errors_update'),
+            'user' => $user,
+            'old_value' => $this->getSavedUpdateFormValues(),
+        ]);
+    }
+
+    public function updateUser()
+    {
+        $user = User::where('id', $_POST['id'])->first();
+        $data = $this->filterUserData($_POST);
+        $model_errors = User::validateUpdate($data);
+        if (!$data['email'] || $data['email']== $user->email) {
+            unset($data['email']);
+            unset($model_errors['email']);
+        }
+        if (empty($model_errors)) {
+            $user->update([
+                'name' => $_POST['name'],
+                'email' => $_POST['email'],
+                'phone' => $_POST['phone'],
+                'address' => $_POST['address'],
+            ]);
+            redirect('/home');
+        }
+        
+        $this->saveUpdateFormValues($_POST);
+        redirect('/userInfo?userId=' . $user->id, ['errors_update' => $model_errors]);
+    }
+
+    /*** UPDATE USER'S ACCOUNT ***/
+    protected function filterPassData(array $data)
+    {
+        return [
+            'password' => $data['password'] ?? null,
+            'new_password' => $data['new_password'] ?? null,
+			'password_confirmation' => $data['password_confirmation'] ?? null
+        ];
+    }
+
+    public function passChange()
+    {
+        $user = User::where('id', $_GET['id'])->first();
+
+        $this->sendPage('manage/passChange', [
+            'errors' => session_get_once('errors_update'),
+            'user' => $user,
+            'old_value' => $this->getSavedUpdateFormValues(),
+        ]);
+    }
+
+    public function updatePass()
+    {
+        $user = User::where('id', $_POST['id'])->first();
+        $data = $this->filterPassData($_POST);
+        $model_errors = User::validatePass($data);
+        $verify = password_verify($data['password'], $user->password);
+        if (!$verify){
+            $model_errors['password'] = 'Mật khẩu không đúng';
+        }
+        if (empty($model_errors) && $verify) {
+            $user->update([
+                'password' => password_hash($_POST['new_password'], PASSWORD_DEFAULT),
+            ]);
+            redirect('/home');
+        }
+        
+        $this->saveUpdateFormValues($_POST);
+        redirect('/passChange?id=' . $user->id, ['errors_update' => $model_errors]);
+    }
 
     /*** MANAGE ALL BILLS ***/
-    public function manageBill(){
-		$khach = User::where('email', Guard::user()->email)->first();
-		$this->sendPage('manage/manageBill',[
-            'bills' => Bill::join('users', 'users.id', '=', 'hoadon.id')->orderBy('ma_hoa_don', 'ASC')->get()
+    public function manageBill()
+    {
+        $khach = User::where('email', Guard::user()->email)->first();
+        $this->sendPage('manage/manageBill', [
+            'bills' => Bill::join('users', 'users.id', '=', 'hoadon.id')->orderBy('ma_hoa_don', 'DESC')->get()
         ]);
-	}
+    }
 
-    public function manageDetailBill(){
-        $this->sendPage('manage/manageDetailBill', ['bill' =>BillDetail::join('sach', 'sach.ma_sach', '=', 'chitiethoadon.ma_sach')->where('ma_hoa_don', $_GET['mhd'])->get(),
-	                                         'billdetail' => Bill::where('ma_hoa_don', $_GET['mhd'])->get()]);
-	}
+    public function manageDetailBill()
+    {
+        $this->sendPage('manage/manageDetailBill', [
+            'bill' => BillDetail::join('sach', 'sach.ma_sach', '=', 'chitiethoadon.ma_sach')->where('ma_hoa_don', $_GET['mhd'])->get(),
+            'billdetail' => Bill::where('ma_hoa_don', $_GET['mhd'])->get()
+        ]);
+    }
 
     public function cancelBill($billId)
     {
-        $data['trang_thai_giao_hang'] = "Đã hủy";
+        $data['trang_thai'] = "Canceled";
         $bill = Bill::where('ma_hoa_don', '=', $billId)->first();
         $bill->update($data);
         redirect('/manageBill');
     }
 
+    public function send($billId)
+    {
+        $data['trang_thai'] = "sending";
+        $bill = Bill::where('ma_hoa_don', '=', $billId)->first();
+        $bill->update($data);
+        redirect('/manageBill');
+    }
 
+    /*** BILL FILTER ***/
+    public function sortBill()
+    {
+        if (isset($_POST['bill-filter'])) {
+            $filter_bill = $_POST['bill-filter'];
+            if ($filter_bill == 1) {
+                $old_selected = array("val" => "1");
+                $this->sendPage('manage/manageBill', [
+                    'bills' => Bill::orderBy('ma_hoa_don', 'DESC')->get(),
+                    'old_selected' => $old_selected
+                ]);
+            } else if ($filter_bill == 2) {
+                $old_selected = array("val" => "2");
+                $this->sendPage('manage/manageBill', [
+                    'bills' => Bill::where('hoadon.trang_thai', '=', 'processing')->get(),
+                    'old_selected' => $old_selected
+                ]);
+            } else if ($filter_bill == 3) {
+                $old_selected = array("val" => "3");
+                $this->sendPage('manage/manageBill', [
+                    'bills' => Bill::where('hoadon.trang_thai', '=', 'sending')->get(),
+                    'old_selected' => $old_selected
+                ]);
+            } else if ($filter_bill == 4) {
+                $old_selected = array("val" => "4");
+                $this->sendPage('manage/manageBill', [
+                    'bills' => Bill::where('hoadon.trang_thai', '=', 'recieved')->get(),
+                    'old_selected' => $old_selected
+                ]);
+            } else if ($filter_bill == 5) {
+                $old_selected = array("val" => "5");
+                $this->sendPage('manage/manageBill', [
+                    'bills' => Bill::where('hoadon.trang_thai', '=', 'Canceled')->get(),
+                    'old_selected' => $old_selected
+                ]);
+            }
+        }
+    }
 }

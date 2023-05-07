@@ -58,8 +58,11 @@
                         foreach ($billdetail as $item) {
                             while ($item['ma_hoa_don'] != $k) {
                                 echo '<div class="row bg-info bg-opacity-10 rounded"><div class="col text-start mt-4">
-            <p><b>Trạng thái đơn hàng: </b>' . $item['trang_thai'] . '</p>
-            <p><b>Trạng thái thanh toán: </b>' . $item['trang_thai'] . '</p>
+            <p><b>Trạng thái đơn hàng: </b>' ; if ($item['trang_thai'] == "Canceled")  {echo 'Đã hủy';} 
+            else if ($item['trang_thai'] == "processing")  {echo 'Đang chuẩn bị hàng';}
+            else if ($item['trang_thai'] == "sending")  {echo 'Đang vận chuyển';} 
+            else if ($item['trang_thai'] == "recieved")  {echo 'Đơn hàng đã hoàn tất';} echo '</p>
+            <p><b>Trạng thái thanh toán: </b>' . $item['trang_thai_thanh_toan'] . '</p>
             <p><b>Ngày đặt hàng: </b>' . $item['ngay_lap'] . '</p>
             </div>
             <div class="col text-end mt-4">

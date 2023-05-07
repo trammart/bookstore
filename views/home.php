@@ -15,7 +15,7 @@
         </div>
         <div class="col text-center">
             <button name="all" class="btn btn-link p-0 m-0"><img src="img/newproduct.png" width="60px" alt=""></button>
-                <p>Sản Phẩm Mới</p>
+            <p>Sản Phẩm Mới</p>
         </div>
         <div class="col text-center">
             <button name="sgk" class="btn btn-link p-0 m-0"><img src="img/sgk.png" width="60px" alt=""></button>
@@ -55,42 +55,52 @@
                     <div class="carousel-inner">
                         <div class="carousel-item active" data-bs-interval="10000">
                             <div class="row gx-3 h-100 align-items-center">
-                            <?php
-                                foreach ($product as $index => $item){
-                                if ($index <= 4){
-                                echo'    
+                                <?php
+                                foreach ($product as $index => $item) {
+                                    if ($index <= 4) {
+                                        echo '    
                                 <div class="col-sm-6 col-md-4 col-xl mb-5 h-100">';
-                                if ($item->khuyen_mai > 0) {echo '<div class="badge">' . $item->khuyen_mai. '% </div>';};
-                                   echo '<div class="card card-span h-100 rounded-3"><a href="/detail?masp=' . $item->ma_sach . '"><img class="img-fluid rounded-3 h-100" src="/img/product/' .$item->hinh_anh .'" alt="..." /></a>
+                                        if ($item->khuyen_mai > 0) {
+                                            echo '<div class="badge">' . $item->khuyen_mai . '% </div>';
+                                        };
+                                        echo '<div class="card card-span h-100 rounded-3"><a href="/detail?masp=' . $item->ma_sach . '"><img class="img-fluid rounded-3 h-100" src="/img/product/' . $item->hinh_anh . '" alt="..." /></a>
                                         <div class="card-body">
-                                            <p class="text-1000 mb-1"> '.$item->ten_sach. '</p>
-                                            <div class=""><span class="text-warning me-2"><i class="fa fa-tag fa-lg"></i></span><span class="text-primary"><del> '. number_format($item->gia_sach, 0, '.', ',') .'đ</del></span></div>
-                                            <span class="text-1000 fs-5 fw-bold">💵' . number_format($item->gia_khuyen_mai, 0, '.', ','). 'đ</span>
+                                            <p class="text-1000 mb-1"> ' . $item->ten_sach . '</p>
+                                            <div class=""><span class="text-warning me-2"><i class="fa fa-tag fa-lg"></i></span><span class="text-primary"><del> ' . number_format($item->gia_sach, 0, '.', ',') . 'đ</del></span></div>
+                                            <span class="text-1000 fs-5 fw-bold">💵' . number_format($item->gia_khuyen_mai, 0, '.', ',') . 'đ</span>
                                         </div>
                                     </div>
-                                    <div class="d-grid gap-2 mt-1"><a class="btn btn-lg btn-danger" href="#!" role="button">👜 Chọn mua</a></div>
-                                </div>'; }
-                                }?>
+                                    <form class="row"  action="/addCart" method="POST"><input type="hidden" value="1"  name="so-luong">
+                                    <input type="hidden" name="masp" value="' . $item->ma_sach . '">
+                                    <div class="d-grid gap-2 mt-1"><button class="btn btn-lg btn-danger" href="#!">👜 Chọn mua</button></div></form>
+                                </div>';
+                                    }
+                                } ?>
                             </div>
                         </div>
                         <div class="carousel-item" data-bs-interval="5000">
                             <div class="row gx-3 h-100 align-items-center">
-                            <?php
-                                foreach ($product as $index => $item){
-                                if ($index >= 5 && $index <=9){
-                                    echo'    
+                                <?php
+                                foreach ($product as $index => $item) {
+                                    if ($index >= 5 && $index <= 9) {
+                                        echo '    
                                     <div class="col-sm-6 col-md-4 col-xl mb-5 h-100">';
-                                    if ($item->khuyen_mai > 0) {echo '<div class="badge">' . $item->khuyen_mai. '% </div>';};
-                                        echo '<div class="card card-span h-100 rounded-3"><a href="/detail?masp=' . $item->ma_sach . '"><img class="img-fluid rounded-3 h-100" src="/img/product/' .$item->hinh_anh .'" alt="..." /></a>
+                                        if ($item->khuyen_mai > 0) {
+                                            echo '<div class="badge">' . $item->khuyen_mai . '% </div>';
+                                        };
+                                        echo '<div class="card card-span h-100 rounded-3"><a href="/detail?masp=' . $item->ma_sach . '"><img class="img-fluid rounded-3 h-100" src="/img/product/' . $item->hinh_anh . '" alt="..." /></a>
                                             <div class="card-body">
-                                                <p class="text-1000 mb-1"> '.$item->ten_sach. '</p>
-                                                <div class=""><span class="text-warning me-2"><i class="fa fa-tag fa-lg"></i></span><span class="text-primary"><del> '. number_format($item->gia_sach, 0, '.', ',') .'đ</del></span></div>
-                                                <span class="text-1000 fs-5 fw-bold">💵' . number_format($item->gia_khuyen_mai, 0, '.', ','). 'đ</span>
+                                                <p class="text-1000 mb-1"> ' . $item->ten_sach . '</p>
+                                                <div class=""><span class="text-warning me-2"><i class="fa fa-tag fa-lg"></i></span><span class="text-primary"><del> ' . number_format($item->gia_sach, 0, '.', ',') . 'đ</del></span></div>
+                                                <span class="text-1000 fs-5 fw-bold">💵' . number_format($item->gia_khuyen_mai, 0, '.', ',') . 'đ</span>
                                             </div>
                                         </div>
-                                        <div class="d-grid gap-2 mt-1"><a class="btn btn-lg btn-danger" href="#!" role="button">👜 Chọn mua</a></div>
-                                    </div>'; }
-                                }?>  
+                                        <form class="row"  action="/addCart" method="POST"><input type="hidden" value="1"  name="so-luong">
+                                    <input type="hidden" name="masp" value="' . $item->ma_sach . '">
+                                    <div class="d-grid gap-2 mt-1"><button class="btn btn-lg btn-danger" href="#!">👜 Chọn mua</button></div></form>
+                                </div>';
+                                    }
+                                } ?>
                             </div>
                         </div>
                     </div>
@@ -158,42 +168,52 @@
                     <div class="carousel-inner">
                         <div class="carousel-item active" data-bs-interval="10000">
                             <div class="row gx-3 h-100 align-items-center">
-                            <?php
-                                foreach ($product_sale as $index => $item){
-                                if ($index <= 4){
-                                echo'    
+                                <?php
+                                foreach ($product_sale as $index => $item) {
+                                    if ($index <= 4) {
+                                        echo '    
                                 <div class="col-sm-6 col-md-4 col-xl mb-5 h-100">';
-                                if ($item->khuyen_mai > 0) {echo '<div class="badge">' . $item->khuyen_mai. '% </div>';};
-                                 echo '<div class="card card-span h-100 rounded-3"><a href="/detail?masp=' . $item->ma_sach . '"><img class="img-fluid rounded-3 h-100" src="/img/product/' .$item->hinh_anh .'" alt="..." /></a>
+                                        if ($item->khuyen_mai > 0) {
+                                            echo '<div class="badge">' . $item->khuyen_mai . '% </div>';
+                                        };
+                                        echo '<div class="card card-span h-100 rounded-3"><a href="/detail?masp=' . $item->ma_sach . '"><img class="img-fluid rounded-3 h-100" src="/img/product/' . $item->hinh_anh . '" alt="..." /></a>
                                         <div class="card-body">
-                                            <p class="text-1000 mb-1"> '.$item->ten_sach. '</p>
-                                            <div class=""><span class="text-warning me-2"><i class="fa fa-tag fa-lg"></i></span><span class="text-primary"><del> '. number_format($item->gia_sach, 0, '.', ',') .'đ</del></span></div>
-                                            <span class="text-1000 fs-5 fw-bold">💵' . number_format($item->gia_khuyen_mai, 0, '.', ','). 'đ</span>
+                                            <p class="text-1000 mb-1"> ' . $item->ten_sach . '</p>
+                                            <div class=""><span class="text-warning me-2"><i class="fa fa-tag fa-lg"></i></span><span class="text-primary"><del> ' . number_format($item->gia_sach, 0, '.', ',') . 'đ</del></span></div>
+                                            <span class="text-1000 fs-5 fw-bold">💵' . number_format($item->gia_khuyen_mai, 0, '.', ',') . 'đ</span>
                                         </div>
                                     </div>
-                                    <div class="d-grid gap-2 mt-1"><a class="btn btn-lg btn-danger" href="#!" role="button">👜 Chọn mua</a></div>
-                                </div>'; }
-                                }?>
+                                    <form class="row"  action="/addCart" method="POST"><input type="hidden" value="1"  name="so-luong">
+                                    <input type="hidden" name="masp" value="' . $item->ma_sach . '">
+                                    <div class="d-grid gap-2 mt-1"><button class="btn btn-lg btn-danger" href="#!">👜 Chọn mua</button></div></form>
+                                </div>';
+                                    }
+                                } ?>
                             </div>
                         </div>
                         <div class="carousel-item" data-bs-interval="5000">
                             <div class="row gx-3 h-100 align-items-center">
-                            <?php
-                                foreach ($product_sale as $index => $item){
-                                if ($index >= 5 && $index <=9){
-                                    echo'    
+                                <?php
+                                foreach ($product_sale as $index => $item) {
+                                    if ($index >= 5 && $index <= 9) {
+                                        echo '    
                                     <div class="col-sm-6 col-md-4 col-xl mb-5 h-100">';
-                                    if ($item->khuyen_mai > 0) {echo '<div class="badge">' . $item->khuyen_mai. '% </div>';};
-                                        echo '<div class="card card-span h-100 rounded-3"><a href="/detail?masp=' . $item->ma_sach . '"><img class="img-fluid rounded-3 h-100" src="/img/product/' .$item->hinh_anh .'" alt="..." /></a>
+                                        if ($item->khuyen_mai > 0) {
+                                            echo '<div class="badge">' . $item->khuyen_mai . '% </div>';
+                                        };
+                                        echo '<div class="card card-span h-100 rounded-3"><a href="/detail?masp=' . $item->ma_sach . '"><img class="img-fluid rounded-3 h-100" src="/img/product/' . $item->hinh_anh . '" alt="..." /></a>
                                             <div class="card-body">
-                                                <p class="text-1000 mb-1"> '.$item->ten_sach. '</p>
-                                                <div class=""><span class="text-warning me-2"><i class="fa fa-tag fa-lg"></i></span><span class="text-primary"><del> '. number_format($item->gia_sach, 0, '.', ',') .'đ</del></span></div>
-                                                <span class="text-1000 fs-5 fw-bold">💵' . number_format($item->gia_khuyen_mai, 0, '.', ','). 'đ</span>
+                                                <p class="text-1000 mb-1"> ' . $item->ten_sach . '</p>
+                                                <div class=""><span class="text-warning me-2"><i class="fa fa-tag fa-lg"></i></span><span class="text-primary"><del> ' . number_format($item->gia_sach, 0, '.', ',') . 'đ</del></span></div>
+                                                <span class="text-1000 fs-5 fw-bold">💵' . number_format($item->gia_khuyen_mai, 0, '.', ',') . 'đ</span>
                                             </div>
                                         </div>
-                                        <div class="d-grid gap-2 mt-1"><a class="btn btn-lg btn-danger" href="#!" role="button">👜 Chọn mua</a></div>
-                                    </div>'; }
-                                }?>  
+                                        <form class="row"  action="/addCart" method="POST"><input type="hidden" value="1"  name="so-luong">
+                                    <input type="hidden" name="masp" value="' . $item->ma_sach . '">
+                                    <div class="d-grid gap-2 mt-1"><button class="btn btn-lg btn-danger" href="#!">👜 Chọn mua</button></div></form>
+                                </div>';
+                                    }
+                                } ?>
                             </div>
                         </div>
                     </div>
